@@ -17,12 +17,19 @@ import { requireCsrf } from './middleware/csrf.js';
 export function createApp() {
   const app = express();
 
+  app.set('trust proxy', 1);
+
   app.use(helmet({
     crossOriginResourcePolicy: false
   }));
+
+  const allowedOrigins = env.clientOrigin.includes(',')
+    ? env.clientOrigin.split(',').map((s) => s.trim())
+    : env.clientOrigin;
+
   app.use(
     cors({
-      origin: env.clientOrigin,
+      origin: allowedOrigins,
       credentials: true
     })
   );

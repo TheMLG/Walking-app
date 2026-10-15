@@ -9,6 +9,7 @@ import { signAuthToken } from '../services/jwt.js';
 import { requireAuth } from '../middleware/auth.js';
 import { issueCsrfToken } from '../middleware/csrf.js';
 import { HttpError } from '../utils/httpError.js';
+import { env } from '../config/env.js';
 
 const router = express.Router();
 
@@ -49,8 +50,8 @@ const updateProfileSchema = z.object({
 function setAuthCookie(res, token) {
   res.cookie('authToken', token, {
     httpOnly: true,
-    sameSite: 'lax',
-    secure: process.env.COOKIE_SECURE === 'true',
+    sameSite: env.cookieSameSite,
+    secure: env.cookieSecure,
     maxAge: 7 * 24 * 60 * 60 * 1000,
     path: '/'
   });

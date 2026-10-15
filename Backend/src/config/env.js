@@ -9,5 +9,7 @@ export const env = {
   jwtSecret: process.env.JWT_SECRET || 'walkwar-dev-secret',
   clientOrigin: process.env.CLIENT_ORIGIN || 'http://localhost:5173',
   cookieSecure: process.env.COOKIE_SECURE === 'true',
+  cookieSameSite: process.env.COOKIE_SAME_SITE || (process.env.COOKIE_SECURE === 'true' ? 'none' : 'lax'),
   minQualifyingDurationMinutes: Number(process.env.MIN_QUALIFYING_DURATION_MINUTES || 5)
 };
+

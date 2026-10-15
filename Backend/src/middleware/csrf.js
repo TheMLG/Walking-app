@@ -1,5 +1,6 @@
 import crypto from 'crypto';
 import { HttpError } from '../utils/httpError.js';
+import { env } from '../config/env.js';
 
 const SAFE_METHODS = new Set(['GET', 'HEAD', 'OPTIONS']);
 
@@ -7,8 +8,8 @@ export function issueCsrfToken(req, res) {
   const token = crypto.randomBytes(32).toString('hex');
   res.cookie('csrfToken', token, {
     httpOnly: false,
-    sameSite: 'lax',
-    secure: process.env.COOKIE_SECURE === 'true',
+    sameSite: env.cookieSameSite,
+    secure: env.cookieSecure,
     path: '/'
   });
   res.json({ csrfToken: token });
