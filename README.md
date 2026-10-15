@@ -1,6 +1,6 @@
-# WalkWar
+# Walkin' Bros
 
-WalkWar is a simple MERN walking tracker for personal workout logging and a global leaderboard.
+Walkin' Bros is a mobile-first MERN walking tracker for personal workout logging, spirit animal avatars, and a global leaderboard.
 
 ## What is implemented now
 

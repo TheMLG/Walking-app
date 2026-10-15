@@ -65,7 +65,7 @@ function getStreaks(qualifyingDays, now) {
 
 export async function getDashboardSnapshot(userId) {
   const goals = await Goal.findOne({ userId }).lean();
-  const weights = await WeightLog.find({ userId }).sort({ date: -1 }).limit(20).lean();
+  const weights = await WeightLog.find({ userId }).sort({ date: -1 }).limit(60).lean();
   const now = new Date();
   const today = getZonedWindow(TIME_ZONE, now);
   const week = getZonedWeekWindow(TIME_ZONE, now);
@@ -133,8 +133,9 @@ export async function getDashboardSnapshot(userId) {
     },
     recentWorkouts,
     leaderboard,
-    weeklyDistanceTargetKm: goals?.weeklyDistanceTargetKm || 0,
-    weeklyActiveDaysTarget: goals?.weeklyActiveDaysTarget || 0,
+    weeklyDistanceTargetKm: goals?.weeklyDistanceTargetKm != null ? goals.weeklyDistanceTargetKm : 15,
+    weeklyActiveDaysTarget: goals?.weeklyActiveDaysTarget != null ? goals.weeklyActiveDaysTarget : 5,
+    targetWeightKg: goals?.targetWeightKg != null ? goals.targetWeightKg : null,
     latestWeightEntry: weights[0] || null,
     weightHistory: weights
   };

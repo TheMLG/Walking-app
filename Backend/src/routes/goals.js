@@ -8,8 +8,9 @@ import { Goal } from '../models/Goal.js';
 const router = express.Router();
 
 const goalSchema = z.object({
-  weeklyDistanceTargetKm: z.number().min(0).default(0),
-  weeklyActiveDaysTarget: z.number().min(0).default(0)
+  weeklyDistanceTargetKm: z.coerce.number().min(0).optional(),
+  weeklyActiveDaysTarget: z.coerce.number().min(0).max(7).optional(),
+  targetWeightKg: z.coerce.number().positive().nullable().optional()
 });
 
 router.get(
@@ -26,15 +27,23 @@ router.put(
   requireAuth,
   validate(goalSchema),
   asyncHandler(async (req, res) => {
+    const update = { userId: req.user._id };
+    if (req.body.weeklyDistanceTargetKm !== undefined) {
+      update.weeklyDistanceTargetKm = req.body.weeklyDistanceTargetKm;
+    }
+    if (req.body.weeklyActiveDaysTarget !== undefined) {
+      update.weeklyActiveDaysTarget = req.body.weeklyActiveDaysTarget;
+    }
+    if (req.body.targetWeightKg !== undefined) {
+      update.targetWeightKg = req.body.targetWeightKg;
+    }
+
     const goal = await Goal.findOneAndUpdate(
       { userId: req.user._id },
-      {
-        userId: req.user._id,
-        weeklyDistanceTargetKm: req.body.weeklyDistanceTargetKm,
-        weeklyActiveDaysTarget: req.body.weeklyActiveDaysTarget
-      },
+      { $set: update },
       { upsert: true, new: true, setDefaultsOnInsert: true }
     ).lean();
+
     res.json({ goal });
   })
 );

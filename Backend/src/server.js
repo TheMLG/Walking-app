@@ -6,7 +6,7 @@ async function start() {
   await connectDb();
   const app = createApp();
   app.listen(env.port, () => {
-    console.log(`WalkWar API listening on http://localhost:${env.port}`);
+    console.log(`Walkin' Bros API listening on http://localhost:${env.port}`);
   });
 }
 

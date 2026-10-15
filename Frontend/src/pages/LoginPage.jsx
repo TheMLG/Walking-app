@@ -32,7 +32,7 @@ export function LoginPage() {
     <div className="flex min-h-screen items-center justify-center px-4 py-10">
       <Card className="w-full max-w-md">
         <div className="mb-8">
-          <div className="text-3xl font-black">WalkWar</div>
+          <div className="text-3xl font-black">Walkin' Bros</div>
           <p className="mt-2 text-sm text-white/60">Sign in to see your walking stats and the global leaderboard.</p>
         </div>
         <form className="space-y-4" onSubmit={handleSubmit}>

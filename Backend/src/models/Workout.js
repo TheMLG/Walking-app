@@ -9,6 +9,7 @@ const workoutSchema = new mongoose.Schema(
     averageSpeedKmh: { type: Number, required: true, min: 0 },
     incline: { type: Number, default: null },
     caloriesBurned: { type: Number, default: null },
+    weightAfterWorkoutKg: { type: Number, default: null },
     notes: { type: String, trim: true, maxlength: 500, default: '' }
   },
   { timestamps: true }

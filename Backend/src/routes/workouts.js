@@ -4,6 +4,7 @@ import { asyncHandler } from '../utils/asyncHandler.js';
 import { validate } from '../middleware/validate.js';
 import { requireAuth } from '../middleware/auth.js';
 import { Workout } from '../models/Workout.js';
+import { WeightLog } from '../models/WeightLog.js';
 
 const router = express.Router();
 
@@ -14,6 +15,7 @@ const workoutSchema = z.object({
   averageSpeedKmh: z.number().positive().optional(),
   incline: z.number().nullable().optional(),
   caloriesBurned: z.number().nullable().optional(),
+  weightAfterWorkoutKg: z.number().positive().nullable().optional(),
   notes: z.string().max(500).optional().default('')
 });
 
@@ -33,8 +35,17 @@ router.post(
       averageSpeedKmh,
       incline: req.body.incline ?? null,
       caloriesBurned: req.body.caloriesBurned ?? null,
+      weightAfterWorkoutKg: req.body.weightAfterWorkoutKg ?? null,
       notes: req.body.notes || ''
     });
+
+    if (req.body.weightAfterWorkoutKg) {
+      await WeightLog.create({
+        userId: req.user._id,
+        date,
+        weightKg: req.body.weightAfterWorkoutKg
+      });
+    }
 
     res.status(201).json({ workout });
   })

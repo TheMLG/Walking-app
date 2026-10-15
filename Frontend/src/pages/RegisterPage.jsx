@@ -35,7 +35,7 @@ export function RegisterPage() {
       <Card className="w-full max-w-md p-5 sm:p-7">
         <div className="mb-6">
           <div className="text-xs uppercase tracking-[0.25em] text-accent/80 font-semibold">Get Started</div>
-          <div className="mt-1 text-3xl font-black text-white">Join WalkWar</div>
+          <div className="mt-1 text-3xl font-black text-white">Join Walkin' Bros</div>
           <p className="mt-1 text-xs sm:text-sm text-white/60">Choose your avatar and track every step on the treadmill.</p>
         </div>
         <form className="space-y-4" onSubmit={handleSubmit}>

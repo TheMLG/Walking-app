@@ -15,7 +15,7 @@ export function AppShell({ children, onLogout }) {
         <aside className="hidden border-r border-line bg-black/20 p-5 lg:flex lg:flex-col">
           <div className="mb-8">
             <div className="text-2xl font-black tracking-tight text-white flex items-center gap-2">
-              <span className="text-accent">⚡</span> WalkWar
+              <span className="text-accent">⚡</span> Walkin' Bros
             </div>
             <div className="mt-2 text-xs uppercase tracking-[0.3em] text-accent/80 font-semibold">Treadmill Tracker</div>
           </div>

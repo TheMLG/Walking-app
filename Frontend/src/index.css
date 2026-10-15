@@ -36,3 +36,20 @@ textarea,
 button {
   font: inherit;
 }
+
+/* Glowing Pastel Green Theme Classes */
+.glow-pastel-green {
+  border: 1px solid rgba(134, 239, 172, 0.48) !important;
+  box-shadow: 0 0 22px rgba(134, 239, 172, 0.26), 0 0 45px rgba(134, 239, 172, 0.09), inset 0 0 12px rgba(134, 239, 172, 0.03) !important;
+}
+
+.glow-pastel-green:hover {
+  border-color: rgba(134, 239, 172, 0.65) !important;
+  box-shadow: 0 0 28px rgba(134, 239, 172, 0.36), 0 0 60px rgba(134, 239, 172, 0.14), inset 0 0 16px rgba(134, 239, 172, 0.05) !important;
+}
+
+.glow-pastel-green-subtle {
+  border: 1px solid rgba(134, 239, 172, 0.32) !important;
+  box-shadow: 0 0 16px rgba(134, 239, 172, 0.15), 0 0 35px rgba(134, 239, 172, 0.05) !important;
+}
+

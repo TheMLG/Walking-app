@@ -41,7 +41,7 @@ export function LeaderboardPage() {
   return (
     <div className="mx-auto max-w-5xl px-4 py-4 sm:py-6 lg:px-8">
       <div className="mb-6">
-        <div className="text-xs uppercase tracking-[0.25em] text-accent/70 font-semibold">WalkWar leaderboard</div>
+        <div className="text-xs uppercase tracking-[0.25em] text-accent/70 font-semibold">Walkin' Bros leaderboard</div>
         <h1 className="mt-1 text-3xl sm:text-4xl font-black tracking-tight text-white">Everyone walks. Everyone counts.</h1>
         <p className="mt-1 text-xs sm:text-sm text-white/60">All registered users ranked by real treadmill history.</p>
       </div>
