@@ -70,9 +70,26 @@ cd Frontend
 npm run dev
 ```
 
-## MongoDB
+## MongoDB Compass
 
-Use a local MongoDB instance or MongoDB Atlas. The backend reads `MONGODB_URI` from environment variables.
+MongoDB Compass is a graphical client for MongoDB; the MongoDB server must also be
+running locally. Install MongoDB Community Server, start the MongoDB service, and
+connect Compass to:
+
+```text
+mongodb://127.0.0.1:27017
+```
+
+Create or select the `walkwar` database in Compass. The backend connects to that
+database using:
+
+```env
+MONGODB_URI=mongodb://127.0.0.1:27017/walkwar
+```
+
+The database and collections are created automatically when the application first
+writes data. If you use MongoDB Atlas instead, replace `MONGODB_URI` with the
+connection string copied from Atlas and use that same URI in Compass.
 
 ## API endpoints
 

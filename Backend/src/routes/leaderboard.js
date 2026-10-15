@@ -25,7 +25,7 @@ router.get(
     const dateFilter = selectedWindow ? { date: { $gte: selectedWindow.start, $lt: selectedWindow.end } } : {};
 
     const [users, workouts] = await Promise.all([
-      User.find({}).select('_id name email').sort({ name: 1 }).lean(),
+      User.find({}).select('_id name email avatar').sort({ name: 1 }).lean(),
       Workout.find(dateFilter).select('userId date distanceKm durationMinutes').lean()
     ]);
 
@@ -71,6 +71,7 @@ router.get(
         userId: String(user._id),
         name: user.name,
         email: user.email,
+        avatar: user.avatar || 'lion',
         totalDistanceKm: stats.totalDistanceKm,
         totalDurationMinutes: stats.totalDurationMinutes,
         sessions: stats.sessions,

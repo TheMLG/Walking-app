@@ -1,6 +1,7 @@
-import { LayoutDashboard, LogOut, Trophy, UserCircle2 } from 'lucide-react';
+import { LayoutDashboard, LogOut, Settings, Trophy, UserCircle2 } from 'lucide-react';
 import { NavLink } from 'react-router-dom';
 import { Button } from './ui';
+import { Avatar } from './Avatar';
 import { useAuth } from '../context/AuthContext';
 
 const navItem = 'flex items-center gap-3 rounded-2xl px-4 py-3 text-sm transition hover:bg-white/5';
@@ -9,54 +10,92 @@ export function AppShell({ children, onLogout }) {
   const { user } = useAuth();
 
   return (
-    <div className="min-h-screen text-white">
+    <div className="min-h-screen text-white bg-bg">
       <div className="mx-auto grid min-h-screen max-w-7xl grid-cols-1 lg:grid-cols-[260px_1fr]">
         <aside className="hidden border-r border-line bg-black/20 p-5 lg:flex lg:flex-col">
           <div className="mb-8">
-            <div className="text-2xl font-black tracking-tight">WalkWar</div>
-            <div className="mt-2 text-xs uppercase tracking-[0.3em] text-accent/80">Personal walking tracker</div>
+            <div className="text-2xl font-black tracking-tight text-white flex items-center gap-2">
+              <span className="text-accent">⚡</span> WalkWar
+            </div>
+            <div className="mt-2 text-xs uppercase tracking-[0.3em] text-accent/80 font-semibold">Treadmill Tracker</div>
           </div>
           <nav className="space-y-2">
-            <NavLink to="/dashboard" className={({ isActive }) => `${navItem} ${isActive ? 'bg-white/7 text-accent' : 'text-white/75'}`}>
+            <NavLink to="/dashboard" className={({ isActive }) => `${navItem} ${isActive ? 'bg-white/10 text-accent font-semibold shadow-glow' : 'text-white/75'}`}>
               <LayoutDashboard className="h-4 w-4" />
               Dashboard
             </NavLink>
-            <NavLink to="/leaderboard" className={({ isActive }) => `${navItem} ${isActive ? 'bg-white/7 text-accent' : 'text-white/75'}`}>
+            <NavLink to="/leaderboard" className={({ isActive }) => `${navItem} ${isActive ? 'bg-white/10 text-accent font-semibold shadow-glow' : 'text-white/75'}`}>
               <Trophy className="h-4 w-4" />
               Leaderboard
             </NavLink>
-            <NavLink to="/profile" className={({ isActive }) => `${navItem} ${isActive ? 'bg-white/7 text-accent' : 'text-white/75'}`}>
-              <UserCircle2 className="h-4 w-4" />
-              Profile
+            <NavLink to="/profile" className={({ isActive }) => `${navItem} ${isActive ? 'bg-white/10 text-accent font-semibold shadow-glow' : 'text-white/75'}`}>
+              <Settings className="h-4 w-4" />
+              Profile & Settings
             </NavLink>
           </nav>
           <div className="mt-auto pt-10">
-            <div className="rounded-3xl border border-line bg-panel2 p-4">
-              <div className="text-xs uppercase tracking-[0.2em] text-white/45">Signed in as</div>
-              <div className="mt-1 font-semibold">{user?.name}</div>
-              <div className="mt-1 text-xs text-white/50">{user?.email}</div>
-            </div>
-            <Button variant="ghost" className="mt-4 w-full justify-start" onClick={onLogout}>
-              <LogOut className="h-4 w-4" />
+            <NavLink to="/profile" className="block rounded-3xl border border-line bg-panel2 p-3.5 transition hover:border-accent/40 hover:bg-panel2/80">
+              <div className="flex items-center gap-3">
+                <Avatar avatarId={user?.avatar} size="md" ring />
+                <div className="min-w-0 flex-1">
+                  <div className="text-[10px] uppercase tracking-[0.2em] text-white/45 font-semibold">Logged in</div>
+                  <div className="truncate font-bold text-sm text-white">{user?.name}</div>
+                  <div className="truncate text-[11px] text-white/50">{user?.email}</div>
+                </div>
+              </div>
+            </NavLink>
+            <Button variant="ghost" className="mt-3 w-full justify-start text-xs py-2.5" onClick={onLogout}>
+              <LogOut className="h-4 w-4 mr-1 text-white/60" />
               Logout
             </Button>
           </div>
         </aside>
-        <main className="pb-20 lg:pb-0">{children}</main>
+        <main className="pb-24 lg:pb-8">{children}</main>
       </div>
 
-      <nav className="fixed inset-x-0 bottom-0 z-40 border-t border-line bg-bg/95 backdrop-blur lg:hidden">
-        <div className="grid grid-cols-3">
-          <NavLink to="/dashboard" className={({ isActive }) => `py-3 text-center text-xs ${isActive ? 'text-accent' : 'text-white/55'}`}>
-            <LayoutDashboard className="mx-auto mb-1 h-5 w-5" />
+      {/* Mobile Bottom Navigation Bar */}
+      <nav className="fixed inset-x-0 bottom-0 z-40 border-t border-line bg-panel/95 backdrop-blur-xl lg:hidden shadow-2xl safe-bottom">
+        <div className="grid grid-cols-4 px-2 py-1">
+          <NavLink
+            to="/dashboard"
+            className={({ isActive }) =>
+              `flex flex-col items-center justify-center py-2 text-[11px] font-medium transition ${
+                isActive ? 'text-accent font-bold' : 'text-white/55 hover:text-white'
+              }`
+            }
+          >
+            <LayoutDashboard className="h-5 w-5 mb-0.5" />
             Dashboard
           </NavLink>
-          <NavLink to="/leaderboard" className={({ isActive }) => `py-3 text-center text-xs ${isActive ? 'text-accent' : 'text-white/55'}`}>
-            <Trophy className="mx-auto mb-1 h-5 w-5" />
-            Leaderboard
+          <NavLink
+            to="/leaderboard"
+            className={({ isActive }) =>
+              `flex flex-col items-center justify-center py-2 text-[11px] font-medium transition ${
+                isActive ? 'text-accent font-bold' : 'text-white/55 hover:text-white'
+              }`
+            }
+          >
+            <Trophy className="h-5 w-5 mb-0.5" />
+            Ranks
           </NavLink>
-          <button className="py-3 text-xs text-white/55" onClick={onLogout}>
-            <LogOut className="mx-auto mb-1 h-5 w-5" />
+          <NavLink
+            to="/profile"
+            className={({ isActive }) =>
+              `flex flex-col items-center justify-center py-2 text-[11px] font-medium transition ${
+                isActive ? 'text-accent font-bold' : 'text-white/55 hover:text-white'
+              }`
+            }
+          >
+            <div className="relative mb-0.5">
+              <Avatar avatarId={user?.avatar} size="xs" ring={false} />
+            </div>
+            Settings
+          </NavLink>
+          <button
+            className="flex flex-col items-center justify-center py-2 text-[11px] font-medium text-white/55 hover:text-white transition"
+            onClick={onLogout}
+          >
+            <LogOut className="h-5 w-5 mb-0.5 text-white/45" />
             Logout
           </button>
         </div>

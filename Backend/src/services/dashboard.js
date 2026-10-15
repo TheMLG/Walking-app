@@ -80,7 +80,7 @@ export async function getDashboardSnapshot(userId) {
   ]);
 
   const [allUsers, allUserWorkouts] = await Promise.all([
-    User.find({}).select('_id name email').sort({ name: 1 }).lean(),
+    User.find({}).select('_id name email avatar').sort({ name: 1 }).lean(),
     Workout.find({}).select('userId date distanceKm durationMinutes').lean()
   ]);
   const statsByUser = new Map();
@@ -106,6 +106,7 @@ export async function getDashboardSnapshot(userId) {
         userId: String(user._id),
         name: user.name,
         email: user.email,
+        avatar: user.avatar || 'lion',
         totalDistanceKm: stats.distanceKm,
         totalDurationMinutes: stats.durationMinutes,
         sessions: stats.workoutCount,

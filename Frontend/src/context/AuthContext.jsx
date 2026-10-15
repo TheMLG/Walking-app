@@ -55,6 +55,16 @@ export function AuthProvider({ children }) {
         const response = await api.get('/api/auth/me');
         setUser(response.data.user);
         return response.data.user;
+      },
+      updateUser(updated) {
+        setUser((prev) => (prev ? { ...prev, ...updated } : updated));
+      },
+      async updateProfile(payload) {
+        const response = await api.patch('/api/profile', payload);
+        if (response.data?.user) {
+          setUser(response.data.user);
+        }
+        return response.data?.user;
       }
     }),
     [user, loading]
